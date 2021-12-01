@@ -1,0 +1,14 @@
+version: "3"
+services:
+  dockermongodb:
+    image: bitnami/mongodb
+    container_name: dockermongodb
+    ports:
+      - 27017:27017
+  springboot-mongo-docker:
+    image: springboot-mongo-docker
+    container_name: springboot-mongo-docker
+    ports:
+      - 8090:8090
+    links:
+      - dockermongodb

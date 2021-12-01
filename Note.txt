@@ -1,0 +1,47 @@
+
+To run docker-compose :
+>docker-compose -f docker-compose.yml up
+
+
+To hit API:
+
+http://localhost:8090/save
+---------------------------------------------------------------
+To pull mongodb and link with spring boot application:
+
+>docker pull bitnami/mongodb
+
+>docker run -d -p 27017:27017 --name dockermongodb bitnami/mongodb
+
+>docker build -t springboot-mongo-docker .
+
+>docker run -p 8080:8080 --name springboot-mongo-docker --link dockermongodb:bitnami/mongodb -d springboot-mongo-docker
+
+>docker logs springboot-mongo-docker
+
+---------------------------------------------------------------
+
+Login to mongo terminal to verify records:
+>docker exec -it dockermongodb bash
+
+type mongo and enter
+show dbs
+use MongoDB
+show collections
+db.dockerModel.find().pretty()
+
+---------------------------------------------------------------
+
+To Build image:
+>docker build -t springboot-mongo-docker.jar .
+
+To Run image:
+>docker run -p 8090:8090 springboot-mongo-docker.jar
+
+To change image name:
+>docker tag springboot-mongo-docker.jar rajeshkawali/springboot-mongo-docker
+
+>docker run -p 8090:8090 rajeshkawali/springboot-mongo-docker
+
+To push the image to docker hub:
+>docker push rajeshkawali/springboot-mongo-docker
